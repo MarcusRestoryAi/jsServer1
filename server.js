@@ -20,7 +20,8 @@ app.listen(portNr, () => {
 //Skapa en GET metod till ROOT adressen
 app.get("", (req, res) => {
   //res representerar responsen. Returnera ett meddelande
-  res.send("Hälsning från Server 1!")
+  //res.send("Hälsning från Server 1!")
+  res.sendFile("index.html", {root: __dirname})
 })
 
 //Skapa en Get Endpoint med annan URL
@@ -30,7 +31,7 @@ app.get("/about", (req, res) => {
 })
 
 //Skapa en POST metod
-app.post("", (req, res) => {
+app.post("/data", (req, res) => {
   //I req.body ligger inkommande payload
   const payload = req.body
   //Payload innehhållet 2st attribut; name, age
@@ -47,4 +48,24 @@ app.post("", (req, res) => {
   res.send(`Data sparad: ${jsonData}`)
   //res.send("Mitt namn är " + payload.name + " och jag är " + payload.age + " år gammal!")
   //res.send(`Mitt namn är ${payload.name} och jag är ${payload.age} år gammal`)
+})
+
+//Skapa en GET Endpoint för att hämta data från .json fil
+app.get("/data", (req, res) => {
+
+  //Öppna .json fil
+  fs.readFile(jsonFilePath, 'utf8', (err, data) => {
+
+    //Kontrollera error. Om ett error finns, avsluta metoden
+    if (err) {
+      console.log(err)
+      return
+    }
+
+    //konvertera JSON till JS struct
+    const jsData = JSON.parse(data)
+
+    //Skicka en response tillbaka
+    res.send(`Mitt namn är ${jsData.name} och jag är ${jsData.age} år gammal`)
+  })
 })

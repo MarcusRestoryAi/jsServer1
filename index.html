@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Index</title>
+</head>
+<body>
+  <h1>Welcome</h1>
+  <p>Inmatning av data för User</p>
+
+  <div>
+    <form action="/data" method="post">
+      <!-- Start av formulär. Input för både namn och age -->
+
+      <div>
+        <label for="name">Namn: </label>
+        <input type="text" name="name" id="name">
+      </div>
+      
+      <div>
+        <label for="age">Ålder: </label>
+        <input type="number" name="age" id="age">
+      </div>
+      
+      <div>
+        <button type="submit">Skicka iväg data</button>
+      </div>
+
+    </form>
+  </div>
+</body>
+</html>
