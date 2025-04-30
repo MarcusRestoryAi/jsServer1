@@ -14,7 +14,7 @@ const jsonFilePath = "./data.json";
 
 //Skapa en Listen metod
 app.listen(portNr, () => {
-  console.log("Service ligger nu på 8080 och lyssnar")
+  console.log(`Service ligger nu på ${portNr} och lyssnar`)
 } )
 
 //Skapa en GET metod till ROOT adressen
@@ -34,7 +34,17 @@ app.post("", (req, res) => {
   //I req.body ligger inkommande payload
   const payload = req.body
   //Payload innehhållet 2st attribut; name, age
+
+  //JSON-stringify payload
+  const jsonData = JSON.stringify(payload, null, 2)
+
+  //Spara JSON-data till fil
+  fs.writeFile(jsonFilePath, jsonData, (err) => {
+    if (err) console.log(err)
+  })
+
   //Skicka tillbaka response
+  res.send(`Data sparad: ${jsonData}`)
   //res.send("Mitt namn är " + payload.name + " och jag är " + payload.age + " år gammal!")
-  res.send(`Mitt namn är ${payload.name} och jag är ${payload.age} år gammal`)
+  //res.send(`Mitt namn är ${payload.name} och jag är ${payload.age} år gammal`)
 })
