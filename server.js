@@ -69,3 +69,8 @@ app.get("/data", (req, res) => {
     res.send(`Mitt namn är ${jsData.name} och jag är ${jsData.age} år gammal`)
   })
 })
+
+//Get ednpoint för script.js
+app.get("/script", (req, res) => {
+  res.sendFile("script.js", {root: __dirname})
+})
