@@ -1,4 +1,18 @@
-{
-  "name": "Marcus",
-  "age": "36"
-}
+[
+  {
+    "name": "Marcus",
+    "age": "10"
+  },
+  {
+    "name": "Anders",
+    "age": "20"
+  },
+  {
+    "name": "Malin",
+    "age": "30"
+  },
+  {
+    "name": "Cihan",
+    "age": "43"
+  }
+]

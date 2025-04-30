@@ -36,16 +36,35 @@ app.post("/data", (req, res) => {
   const payload = req.body
   //Payload innehhållet 2st attribut; name, age
 
-  //JSON-stringify payload
-  const jsonData = JSON.stringify(payload, null, 2)
+  //Hämta den befintliga datan från .json fil
+  fs.readFile(jsonFilePath, 'utf8', (err, data) => {
 
-  //Spara JSON-data till fil
-  fs.writeFile(jsonFilePath, jsonData, (err) => {
-    if (err) console.log(err)
+    //Kontrollera error. Om ett error finns, avsluta metoden
+    if (err) {
+      console.log(err)
+      return
+    }
+
+    let arrData;
+    //Kontrollera att data från .json fil finns
+    if (data) arrData = JSON.parse(data)
+    else arrData = []
+
+    //Placerar in Payload data till Lista/Array
+    arrData.push(payload)
+
+    //JSON-stringify payload
+    const jsonData = JSON.stringify(arrData, null, 2)
+
+    //Spara JSON-data till fil
+    fs.writeFile(jsonFilePath, jsonData, (err) => {
+      if (err) console.log(err)
+    })
+
+    //Skicka tillbaka response
+    res.send(`Data sparad: ${jsonData}`)
+
   })
-
-  //Skicka tillbaka response
-  res.send(`Data sparad: ${jsonData}`)
   //res.send("Mitt namn är " + payload.name + " och jag är " + payload.age + " år gammal!")
   //res.send(`Mitt namn är ${payload.name} och jag är ${payload.age} år gammal`)
 })
@@ -62,11 +81,16 @@ app.get("/data", (req, res) => {
       return
     }
 
+    //Returnera JSON sträng
+    res.send(data)
+
+    /*
     //konvertera JSON till JS struct
     const jsData = JSON.parse(data)
 
     //Skicka en response tillbaka
     res.send(`Mitt namn är ${jsData.name} och jag är ${jsData.age} år gammal`)
+    */
   })
 })
 
