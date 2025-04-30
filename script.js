@@ -14,3 +14,5 @@ let dataCall = async () => {
 };
 
 dataCall()
+
+// document.getElementById("tempOut").innerText = "Hello World!"
